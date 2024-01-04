@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #countryList{
+            display: flex;
+            flex-direction: column;
+            row-gap: 5px;
+        }
+        .countryCard{
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            border: 5px solid orange;
+
+        }
+        #searchBar{
+            display: flex;
+            position: sticky;
+            top: 0px;
+        }
+    </style>
+</head>
+<body>
+    <nav id="searchBar">
+        <input id="searchBox" type="search">
+        <button id="searchBtn">search</button>
+    </nav>
+
+    <div id="countryList"></div>
+
+    <script src="./main.js"></script>
+</body>
+</html>
