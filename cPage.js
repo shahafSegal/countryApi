@@ -1,8 +1,10 @@
-const baseUrl = "https://restcountries.com/v3.1/all"
+const baseUrl = "https://restcountries.com/v3.1/name/"
 const listCont= document.getElementById('countryList')
 
+
+
 function getCountries(){
-    fetch(baseUrl)
+    fetch(baseUrl+'usa')
   .then(response => {
     // Check if the request was successful (status code 200-299)
     if (!response.ok) {
@@ -14,7 +16,7 @@ function getCountries(){
   })
   .then(data => {
     // Handle the data from the response
-    createCountries(data);
+    createCountry(data);
   })
   .catch(error => {
     // Handle errors during the fetch
@@ -23,27 +25,26 @@ function getCountries(){
 }
 
 
-
-function createCountries(cntData){
-    console.log(cntData)
-    let shuffledCnt = cntData
-    .map(value => ({ value, sort: Math.random() }))
-    .sort((a, b) => a.sort - b.sort)
-    .map(({ value }) => value)
-
-    listCont.innerHTML=shuffledCnt.map((anyCountry)=>makeCountry(anyCountry)).join('')
+function createCountry(cntData){
+    console.log(cntData[0]);
+    listCont.innerHTML=makeCountry(cntData[0])
 }
 
 function makeCountry(sglCountry)
 {
     return`<div class="countryCard">
-        <h1>${sglCountry.name.common}</h1>
-        <h3>Capital: ${sglCountry.capital?sglCountry.capital[0]:'no capital'}</h3>
+        <div>
+            <h1>${sglCountry.name.common}</h1>
+            <h3>Capital: ${sglCountry.capital?sglCountry.capital[0]:'no capital'}</h3>
+        </div>    
         <img src='${sglCountry.flags.png||''}'>
-        
+        <div><h2>borders: </h2>
+        <ol>${arrToHtmlList(sglCountry.borders)}</ol>
+        </div>
     </div>`
 }
 
-
-
+function arrToHtmlList(arr){
+    return arr.map((arrVar)=>{return `<li>${arrVar}</li>`}).join('')
+}
 getCountries()
